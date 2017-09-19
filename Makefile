@@ -25,7 +25,7 @@ repl: install
 
 .PHONY: requirements
 requirements:
-	sudo pip install -r requirements.txt
+	sudo -H pip install -r requirements.txt
 
 .PHONY: install
 install: requirements
