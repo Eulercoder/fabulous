@@ -1,4 +1,4 @@
-from .slack import User, Bot
+    from .slack import User, Bot
 
 
 class FakeServer(object):
