@@ -46,6 +46,8 @@ Users don’t have to leave Slack, open browser and search for something.
 - *_Work on services folder only_*
 - Check `gif service` for the reference.
 
+*Note: for windows, edit Makefile and remove all instances of `sudo` and `sudo -H`*
+
 # Getting Started
 
 [Please read this article on Fabulous Bot](http://eulercoder.me/2017/09/eulercoder-project-series-fabulous-bot/)
