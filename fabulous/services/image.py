@@ -1,4 +1,4 @@
-"""~image <search term> return a random result from google search image realted to the <search term>"""
+"""~img <search term> return a random result from google search image related to the <search term>"""
 
 try:
     from urllib import quote
@@ -14,7 +14,7 @@ def unescape(url):
     return url.replace(r"\x", "%")
 
 
-def image(searchterm, unsafe=False):
+def img(searchterm, unsafe=False):
     searchterm = quote(searchterm)
 
     safe = "&safe=" if unsafe else "&safe=active"
@@ -36,11 +36,11 @@ def image(searchterm, unsafe=False):
 
 def on_message(msg, server):
     text = msg.get("text", "")
-    match = re.findall(r"~image (.*)", text)
+    match = re.findall(r"~img (.*)", text)
     if not match:
         return
 
     searchterm = match[0]
-    return image(searchterm.encode("utf8"))
+    return img(searchterm.encode("utf8"))
 
 on_bot_message = on_message
