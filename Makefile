@@ -26,6 +26,7 @@ repl: install
 .PHONY: requirements
 requirements:
 	sudo -H pip install -r requirements.txt
+	sudo -H pip install google-api-python-client
 
 .PHONY: install
 install: requirements
