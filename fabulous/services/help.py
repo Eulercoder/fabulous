@@ -1,4 +1,4 @@
-"""!help [<command>] prints help on all commands if no command given, or a specific command"""
+"""~help [<command>] prints help on all commands if no command given, or a specific command"""
 
 import re
 
