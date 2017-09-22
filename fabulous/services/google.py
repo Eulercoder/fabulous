@@ -10,10 +10,10 @@ my_api_key = "AIzaSyBsjhFjCPiJ0vNupCd4iz4ACopErHhbLHE"
 my_cse_id = "007934774098213246217:zqwwmbtyjbq"
 
 
-def google(search_term, api_key, cse_id, **kwargs):
+def google(searchterm, api_key, cse_id, **kwargs):
     #logging.getLogger('googleapicliet.discovery_cache').setLevel(logging.ERROR)
     service = build("customsearch", "v1", developerKey=api_key, cache_discovery=False)
-    res = service.cse().list(q=search_term, cx=cse_id, **kwargs).execute()
+    res = service.cse().list(q=searchterm, cx=cse_id, **kwargs).execute()
     return res['items']
 
 
