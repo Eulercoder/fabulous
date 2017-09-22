@@ -37,7 +37,16 @@ Users don’t have to leave Slack, open browser and search for something.
 
 # Installation
 
-[Will be updated soon]
+*Steps to Run this Bot Locally!*
+
+- clone the repo
+- Do `export SLACK_TOKEN='slack-api-token' `
+- then `make repl` for local testing
+- if `make repl` doesn't work, try with `sudo`
+- *_Work on services folder only_*
+- Check `gif service` for the reference.
+
+*Note: for windows, edit Makefile and remove all instances of `sudo` and `sudo -H`*
 
 # Getting Started
 
