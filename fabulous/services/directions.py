@@ -45,9 +45,6 @@ def directions(start, end, unsafe=False):
 
     mapService = GoogleMaps(api_key)
 
-    start = quote(start)
-    end = quote(end)
-
     url = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
             ('origin', start),
             ('destination', end)
