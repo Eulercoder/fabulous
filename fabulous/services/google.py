@@ -20,13 +20,14 @@ def google(searchterm, api_key, cse_id, **kwargs):
 def google_search(searchterm):
     results = google(searchterm, my_api_key, my_cse_id, num=10)
     length = len(results)
+    retval = ""
     if length < 3:
         for index in range(length):
-            print results[index]['link']
+            retval += results[index]['link'] + "\n"
     else:
         for index in range(3):
-            print results[index]['link']
-    return
+            retval += results[index]['link'] + "\n"
+    return retval
 
 
 def on_message(msg, server):
