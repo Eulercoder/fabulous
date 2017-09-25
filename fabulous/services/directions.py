@@ -54,9 +54,7 @@ def directions(start, end, unsafe=False):
 
     for i in range (0, len (result['routes'][0]['legs'][0]['steps'])):
         j = result['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
-        print strip_tags(j)
-
-    return
+        yield strip_tags(j)
     
 
 def on_message(msg, server):
