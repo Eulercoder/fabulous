@@ -4,7 +4,8 @@ import goslate, re
 
 def translate(text):
     gs = goslate.Goslate()
-    return gs.translate(text, 'en')
+    id = text.split()
+    return gs.translate(text[3:], id[0])
 
 def on_message(msg, server):
     text = msg.get("text", "")
