@@ -9,7 +9,7 @@ import requests
 import json, urllib
 import googlemaps
 from googlemaps import Client as GoogleMaps
-try: 
+try:
     from HTMLParser import HTMLParser
 except ImportError:
     from html.parser import HTMLParser
@@ -18,7 +18,7 @@ except ImportError:
 #to strip HTML tags from the html_instructions string
 class MLStripper(HTMLParser):
     def __init__(self):
-        try: 
+        try:
             self.reset()
             self.strict = False
             self.convert_charrefs= True
@@ -40,8 +40,8 @@ def unescape(url):
     return url.replace(r"\x", "%")
 
 def directions(start, end, unsafe=False):
-    
-    api_key = 'AIzaSyDlTiXuhRZpc_CjpJMTh0pJNJaqBlF297U'
+
+    api_key = 'Your API Key'
 
     mapService = GoogleMaps(api_key)
 
@@ -53,11 +53,11 @@ def directions(start, end, unsafe=False):
     result = json.load(ur)
 
     for i in range (0, len (result['routes'][0]['legs'][0]['steps'])):
-        j = result['routes'][0]['legs'][0]['steps'][i]['html_instructions'] 
+        j = result['routes'][0]['legs'][0]['steps'][i]['html_instructions']
         print strip_tags(j)
 
     return
-    
+
 
 def on_message(msg, server):
     text = msg.get("text", "")
