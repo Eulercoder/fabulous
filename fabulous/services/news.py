@@ -8,7 +8,7 @@ import json
 import urllib
 
 def fetchNews(newsParams):
-    APIKEY  =  "283cc82003f049b8863863099d46aa77"
+    APIKEY  =  "YOUR API KEY" #Get your developer API key from the service
     sourceBaseURL = "https://newsapi.org/v1/sources?"
     articleBaseURL = "https://newsapi.org/v1/articles?"
     language = 'en'
