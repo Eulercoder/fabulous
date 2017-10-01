@@ -30,7 +30,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
-            python2.7 -m venv venv
+            python -m venv venv
             . venv/bin/activate
             make run
 
