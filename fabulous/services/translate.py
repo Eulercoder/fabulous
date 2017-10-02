@@ -1,4 +1,4 @@
-"""~translate <text> will return the goslate transalte result for <text> in English"""
+"""~translate <language code> <text> will return the goslate translate result for <text> in the language code you wrote"""
 
 import goslate, re
 
