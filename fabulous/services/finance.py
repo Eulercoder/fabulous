@@ -10,7 +10,9 @@ import re
 
 def stock(name):
     query = quote(name)
-    url = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval=1min&apikey=96LBSRJWWKHLLIWI".format(query)
+    api_key = "Your API Key" #Get your developer API key from the service website
+    link = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval=1min&apikey="+api_key
+    url = link.format(query)
     response = urllib.urlopen(url)
     data = json.loads(response.read())
 
