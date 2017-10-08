@@ -1,4 +1,4 @@
-"""news <location> <category> <language>will fetch news from news API
+"""~news <location> <category> <language>will fetch news from news API
 1. news
 2. news <au, de, gb, in, it, us>
 3. news <au, de, gb, in, it, us> <business, entertainment, gaming, general, music, politics, science-and-nature, sport, technology>
