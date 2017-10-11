@@ -1,4 +1,4 @@
-"""news <location> <category> <language>will fetch news from news API
+"""~news <location> <category> <language>will fetch news from news API
 1. news
 2. news <au, de, gb, in, it, us>
 3. news <au, de, gb, in, it, us> <business, entertainment, gaming, general, music, politics, science-and-nature, sport, technology>
@@ -8,7 +8,7 @@ import json
 import urllib
 
 def fetchNews(newsParams):
-    APIKEY  =  "283cc82003f049b8863863099d46aa77"
+    APIKEY  =  'YOUR API KEY' #Get your developer API key from the service
     sourceBaseURL = "https://newsapi.org/v1/sources?"
     articleBaseURL = "https://newsapi.org/v1/articles?"
     language = 'en'

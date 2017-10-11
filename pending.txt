@@ -1,0 +1,9 @@
+List of services that need API keys
+1. google search service(https://console.developers.google.com/apis/dashboard, https://cse.google.co.in/cse/)
+2. news service(https://newsapi.org/)
+3. directions service
+4. stocks/finance service(https://www.alphavantage.co/)
+5. to use the bot inside slack also requires a token
+
+List of Pending services
+1. weather service
