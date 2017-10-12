@@ -1,4 +1,4 @@
-"""~yt <search term> > will return the top search result """
+"""~yt <search term> will return the top search result """
 
 try:
     from urllib import quote
