@@ -7,3 +7,7 @@ List of services that need API keys
 
 List of Pending services
 1. weather service
+2. wikipedia service
+3. maps service
+4. changes required in news service(~news should be the correct way of calling instead of news)
+5. api key should be removed from news.py
