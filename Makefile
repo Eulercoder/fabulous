@@ -17,15 +17,15 @@ clean:
 
 .PHONY: run
 run: install
-	sudo bin/fabulous
+	bin/fabulous
 
 .PHONY: repl
 repl: install
-	sudo bin/fabulous -t
+	bin/fabulous -t
 
 .PHONY: requirements
 requirements:
-	sudo -H pip install -r requirements.txt
+	pip install -r requirements.txt
 	
 .PHONY: install
 install: requirements
