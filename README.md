@@ -42,12 +42,18 @@ Users don’t have to leave Slack, open browser and search for something.
 
 - clone the repo
 - Do `export SLACK_TOKEN='slack-api-token' `
+- edit the Makefile and add `sudo` to the run, repl section and `sudo -H` in requirements section
 - then `make repl` for local testing
 - if `make repl` doesn't work, try with `sudo`
 - *_Work on services folder only_*
 - Check `gif service` for the reference.
 
 *Note: for windows, edit Makefile and remove all instances of `sudo` and `sudo -H`*
+
+*Running in a Docker contianer!*
+
+- Clone the repo
+- run `cd fabulous && docker build -t faboulous . && docker run -it fabulous`
 
 # Getting Started
 
