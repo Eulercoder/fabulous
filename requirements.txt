@@ -11,3 +11,4 @@ ipdb==0.10.3
 google-api-python-client
 goslate==1.5.0
 googlemaps
+pynotify==0.1.1
