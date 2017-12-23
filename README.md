@@ -4,6 +4,7 @@
    <img align="centre" src="https://cdn-images-1.medium.com/max/800/1*BDwu0v1rHBpfFdYGx30yTw.png" alt="Fabulous Bot for Slack" width="200px" height="200px"/>
 </p>
 
+[![GitHub license](https://img.shields.io/github/license/eulercoder/fabulous.svg)](https://github.com/Eulercoder/fabulous/blob/master/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/eulercoder/fabulous.svg)](https://github.com/eulercoder/fabulous/stargazers) [![GitHub forks](https://img.shields.io/github/forks/eulercoder/fabulous.svg)](https://github.com/eulercoder/fabulous/network) [![GitHub issues](https://img.shields.io/github/issues/eulercoder/fabulous.svg)](https://github.com/eulercoder/fabulous/issues)
 
 ### Donate ($1) - Help us in creating more awesome open source projects
 
