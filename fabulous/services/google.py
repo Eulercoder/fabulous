@@ -5,9 +5,9 @@ import requests
 from random import shuffle
 from googleapiclient.discovery import build
 import logging
+from secret_example import GOOGLE_CUSTOM_SEARCH_ENGINE, GOOGLE_SEARCH_API
 
-my_api_key = "Your API Key(Link: https://console.developers.google.com/apis/dashboard)"
-my_cse_id = "Your Custom Search Engine ID(Link: https://cse.google.co.in/cse/)"
+
 
 """fuction to fetch data from Google Custom Search Engine API"""
 def google(searchterm, api_key, cse_id, **kwargs):
@@ -17,7 +17,7 @@ def google(searchterm, api_key, cse_id, **kwargs):
 
 """fuction to return first three search results"""
 def google_search(searchterm):
-    results = google(searchterm, my_api_key, my_cse_id, num=10)
+    results = google(searchterm, GOOGLE_SEARCH_API, GOOGLE_CUSTOM_SEARCH_ENGINE, num=10)
     length = len(results)
     retval = ""
     if length < 3:

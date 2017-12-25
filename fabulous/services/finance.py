@@ -1,6 +1,7 @@
 """~stock <search_term> will return the real time result of that stock."""
 import urllib, json
 import requests
+from secret_example import ALPHA_VANTAGE_STOCK_API
 
 try:
     from urllib import quote
@@ -10,8 +11,7 @@ import re
 
 def stock(name):
     query = quote(name)
-    api_key = "Your API Key" #Get your developer API key from the service website
-    link = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval=1min&apikey="+api_key
+    link = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval=1min&apikey="+ALPHA_VANTAGE_STOCK_API
     url = link.format(query)
     response = urllib.urlopen(url)
     data = json.loads(response.read())

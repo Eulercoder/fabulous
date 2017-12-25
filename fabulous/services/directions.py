@@ -9,6 +9,7 @@ import requests
 import json, urllib
 import googlemaps
 from googlemaps import Client as GoogleMaps
+from secret_example import GOOGLE_DIRECTION_API
 try:
     from HTMLParser import HTMLParser
 except ImportError:
@@ -41,9 +42,7 @@ def unescape(url):
 
 def directions(start, end, unsafe=False):
 
-    api_key = 'Your API Key'
-
-    mapService = GoogleMaps(api_key)
+    mapService = GoogleMaps(GOOGLE_DIRECTION_API)
 
     url = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
             ('origin', start),
