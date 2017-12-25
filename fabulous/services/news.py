@@ -6,9 +6,9 @@
 import requests
 import json
 import urllib
+from secret_example import NEWS_API
 
 def fetchNews(newsParams):
-    APIKEY  =  'YOUR API KEY' #Get your developer API key from the service
     sourceBaseURL = "https://newsapi.org/v1/sources?"
     articleBaseURL = "https://newsapi.org/v1/articles?"
     language = 'en'
@@ -45,7 +45,7 @@ def fetchNews(newsParams):
     
     newsQuery = {
 	'source':'',
-	'apiKey':APIKEY
+	'apiKey':NEWS_API
     }
     
     for source in sourceList:
