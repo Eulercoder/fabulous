@@ -1,5 +1,4 @@
 """~stock <search_term> will return the real time result of that stock."""
-import urllib, json
 import requests
 from secret_example import ALPHA_VANTAGE_STOCK_API
 
@@ -13,8 +12,8 @@ def stock(name):
     query = quote(name)
     link = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval=1min&apikey="+ALPHA_VANTAGE_STOCK_API
     url = link.format(query)
-    response = urllib.urlopen(url)
-    data = json.loads(response.read())
+    response = requests.get(url)
+    data = response.json()
 
     try:
         index = data["Meta Data"]["3. Last Refreshed"]

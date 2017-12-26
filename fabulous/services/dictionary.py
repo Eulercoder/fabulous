@@ -1,5 +1,4 @@
 """~dict <search_term> will return the meaning and usage of <search_term>"""
-import urllib, json
 import requests
 try:
     from urllib import quote
@@ -11,8 +10,8 @@ def dict(word):
     query =  quote(word)
     url = "http://api.urbandictionary.com/v0/define?term={0}".format(query)
 
-    response = urllib.urlopen(url)
-    data = json.loads(response.read())
+    response = requests.get(url)
+    data = response.json()
 
     try:
         example = data["list"][0]["example"]
