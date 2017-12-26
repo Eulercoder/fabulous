@@ -27,27 +27,46 @@ dictionary_responce = {
 }
 
 
-class TestDictionarServices(unittest.TestCase):
-
-    @patch('fabulous.services.dictionary.requests.get')
-    def test_responce_is_not_none(self, mock_get):
-        mock_get.return_value.ok = True
-        query = 'Test'
-        responce =  dictionary.dict(query)
-        self.assertIsNotNone(responce)
+class TestDictionaryService(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.mock_get_patcher = patch('fabulous.services.dictionary.requests.get')
+        cls.mock_get = cls.mock_get_patcher.start()
     
-    ''' Test the processing of responce from urbandictionary API'''
-    @patch('fabulous.services.dictionary.requests.get')
-    def test_getting_defination_when_responce_is_not_none(self, mock_get):
-        ''' Configure the mock to return a responce with an OK status.
-        Also configures a JSON Method that returns the dictionary of word definations'''
-        mock_get.return_value = Mock(ok=True)
-        mock_get.return_value.json.return_value = dictionary_responce
+    @classmethod
+    def tearDownClass(cls):
+        cls.mock_get_patcher.stop()
+
+    def test_dict_returns_correct_word(self):
+        ''' Calls the dict method with a word and tests
+        if the word is present in the responce '''
+        self.mock_get.return_value = Mock()
+        self.mock_get.return_value.json.return_value = dictionary_responce
 
         query = 'test'
         responce = dictionary.dict(query)
-        self.assertIn('This is a test message', responce)
-        self.assertIn('A process for testing things',responce)
 
-if __name__ == '__main__':
-    unittest.main()
+        ''' Tests that the mocked get have been called'''
+        self.assertTrue(self.mock_get.called)
+        self.assertIn(query, responce)
+    
+    def test_dict_returns_example_and_defination_when_responce_is_not_None(self):
+        self.mock_get.return_value = Mock()
+        self.mock_get.return_value.json.return_value = dictionary_responce
+
+        query = 'test'
+        responce = dictionary.dict(query)
+
+        self.assertTrue(self.mock_get.called)
+        self.assertIn('A process for testing things', responce)
+        self.assertIn('This is a test message', responce)
+
+    def test_dict_returns_error_message_when_responce_is_None(self):
+        ''' set the return value of requests.get.json to None '''
+        self.mock_get.return_value.json.return_value = None
+
+        query = 'test'
+        responce = dictionary.dict(query)
+
+        self.assertTrue(self.mock_get.called)
+        self.assertEqual(dictionary.ERROR_MSG, responce)
