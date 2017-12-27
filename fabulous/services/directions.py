@@ -15,7 +15,7 @@ try:
 except ImportError:
     from html.parser import HTMLParser
 
-
+ERROR_MSG = "Some unknown error occured"
 #to strip HTML tags from the html_instructions string
 class MLStripper(HTMLParser):
     def __init__(self):
@@ -44,18 +44,24 @@ def directions(start, end, unsafe=False):
 
     mapService = GoogleMaps(GOOGLE_DIRECTION_API)
 
-    url = 'http://maps.googleapis.com/maps/api/directions/json?%s' % urlencode((
-            ('origin', start),
-            ('destination', end)
-    ))
-    ur = urllib.urlopen(url)
-    result = json.load(ur)
+    start = quote(start)
+    end = quote(end)
+    url = 'http://maps.googleapis.com/maps/api/directions/json?origin={0}&destination={1}'.format(start,end)
+    result = requests.get(url)
+    result = result.json()
+    responce = ''
 
-    for i in range (0, len (result['routes'][0]['legs'][0]['steps'])):
-        j = result['routes'][0]['legs'][0]['steps'][i]['html_instructions']
-        print strip_tags(j)
+    if result['status'] == "OK":
+        for i in range (0, len (result['routes'][0]['legs'][0]['steps'])):
+            j = result['routes'][0]['legs'][0]['steps'][i]['html_instructions']
+            responce +=strip_tags(j)+'\n'
 
-    return
+        return responce
+    else:
+        ''' Will be replaced with logging in future'''
+        print(result['status'])
+        print(result['error_message'])
+        return ERROR_MSG
 
 
 def on_message(msg, server):
