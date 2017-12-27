@@ -8,10 +8,13 @@ except ImportError:
     from urllib.request import quote
 import re
 
+ERROR_MSG = ":crying_cat_face: Sorry, something went wrong :crying_cat_face:"
 def stock(name):
     query = quote(name)
     link = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval=1min&apikey="+ALPHA_VANTAGE_STOCK_API
     url = link.format(query)
+    ''' Need to implement exception handling and logging
+        for requests.get '''
     response = requests.get(url)
     data = response.json()
 
@@ -20,7 +23,7 @@ def stock(name):
         answer = data["Time Series (1min)"][index]
         result = data["Meta Data"]["2. Symbol"] + "\n" + "Last Refreshed : " + index + "\n" + "Time Zone : " + data["Meta Data"]["6. Time Zone"] + "\n" + "1. open : " + answer["1. open"] + "\n" + "2. close : " + answer["4. close"] + "\n" + "3. high : " + answer["2. high"] + "\n" + "4. low : " + answer["3. low"] + "\n" + "5. volume : " + answer["5. volume"]
     except:
-        return ":crying_cat_face: Sorry, something went wrong :crying_cat_face:"
+        return ERROR_MSG
 
     return result
 

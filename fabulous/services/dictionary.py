@@ -6,6 +6,7 @@ except ImportError:
     from urllib.request import quote
 import re
 
+ERROR_MSG = "Sorry, this word doesn't exist!!"
 def dict(word):
     query =  quote(word)
     url = "http://api.urbandictionary.com/v0/define?term={0}".format(query)
@@ -17,7 +18,7 @@ def dict(word):
         example = data["list"][0]["example"]
         definition = data["list"][0]["definition"]
     except:
-        return "Sorry, this word doesn't exist!!"
+        return ERROR_MSG
 
     answer = "definition : " + definition + "\n" + "example : " + example
 
