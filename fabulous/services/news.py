@@ -10,10 +10,12 @@ from secret_example import NEWS_API
 
 SOURCE_ERR = "Failed to fetch sources"
 NEWS_ERR = "Failed to fetch news"
+INTERNAL_ERR = "Some unknown error occured"
+sourceBaseURL = "https://newsapi.org/v1/sources"
+articleBaseURL = "https://newsapi.org/v1/articles"
+
 
 def fetchNews(newsParams):
-    sourceBaseURL = "https://newsapi.org/v1/sources?"
-    articleBaseURL = "https://newsapi.org/v1/articles?"
     language = 'en'
     category = 'general'
     country = 'in'
@@ -37,12 +39,16 @@ def fetchNews(newsParams):
 
     sourceJsonData = requests.get(sourceBaseURL, params=sourceQuery).json()
     sourceList = []
-    if sourceJsonData['status'] == 'ok':
-	for sourceInfo in sourceJsonData['sources']:
-	    sourceList.append([sourceInfo['id'], sourceInfo['name']])
-    else:
-	    print(sourceBaseURL)
-	    return SOURCE_ERR
+    try:
+        if sourceJsonData['status'] == 'ok':
+            for sourceInfo in sourceJsonData['sources']:
+                sourceList.append([sourceInfo['id'], sourceInfo['name']])
+        else:
+            print(sourceBaseURL)
+            return SOURCE_ERR
+    except KeyError:
+        print("Invalid data(key missing)")
+        return INTERNAL_ERR
 
     newsData = "\n"
     
@@ -51,16 +57,20 @@ def fetchNews(newsParams):
 	'apiKey':NEWS_API
     }
     
-    for source in sourceList:
-        newsQuery['source'] = source[0]
-        articleJsonData = requests.get(articleBaseURL, newsQuery).json()
-        if articleJsonData['status'] == 'ok':
-            for article in articleJsonData['articles']:
-                title, publishedAt, description, url, author, sourceName = [(i if i else "Not available") for i in [article['title'], article['publishedAt'], article['description'], article['url'], article['author'], source[1]]]
-                newsData += title + '\n\n' + publishedAt + '\n' + description + '\nRead further at: ' + url + '\nAuthor: ' + author + '\nSource: ' + sourceName + '\n\n\n\n'
-        else :
-            print(articleBaseURL)
-            return NEWS_ERR
+    try:
+        for source in sourceList:
+            newsQuery['source'] = source[0]
+            articleJsonData = requests.get(articleBaseURL, newsQuery).json()
+            if articleJsonData['status'] == 'ok':
+                for article in articleJsonData['articles']:
+                    title, publishedAt, description, url, author, sourceName = [(i if i else "Not available") for i in [article['title'], article['publishedAt'], article['description'], article['url'], article['author'], source[1]]]
+                    newsData += title + '\n\n' + publishedAt + '\n' + description + '\nRead further at: ' + url + '\nAuthor: ' + author + '\nSource: ' + sourceName + '\n\n\n\n'
+            else :
+                print(articleBaseURL)
+                return NEWS_ERR
+    except KeyError:
+        print("Key error")
+        return INTERNAL_ERR
     return newsData
 
 
