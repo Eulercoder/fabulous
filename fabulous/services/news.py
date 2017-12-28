@@ -5,8 +5,11 @@
 4. news <au, de, gb, in, it, us> <business, entertainment, gaming, general, music, politics, science-and-nature, sport, technology> <en,  de,  fr>"""
 import requests
 import json
-import urllib
 from secret_example import NEWS_API
+
+
+SOURCE_ERR = "Failed to fetch sources"
+NEWS_ERR = "Failed to fetch news"
 
 def fetchNews(newsParams):
     sourceBaseURL = "https://newsapi.org/v1/sources?"
@@ -31,15 +34,15 @@ def fetchNews(newsParams):
 	'country':country,
 	'category':category
     }
-    queryURL = sourceBaseURL + urllib.urlencode(sourceQuery)
-    sourceJsonData = requests.get(queryURL).json()
+
+    sourceJsonData = requests.get(sourceBaseURL, params=sourceQuery).json()
     sourceList = []
     if sourceJsonData['status'] == 'ok':
 	for sourceInfo in sourceJsonData['sources']:
 	    sourceList.append([sourceInfo['id'], sourceInfo['name']])
     else:
-	print queryURL
-	return "Failed to fetch news."
+	    print(sourceBaseURL)
+	    return SOURCE_ERR
 
     newsData = "\n"
     
@@ -49,16 +52,15 @@ def fetchNews(newsParams):
     }
     
     for source in sourceList:
-	newsQuery['source'] = source[0]
-	queryURL = articleBaseURL + urllib.urlencode(newsQuery)
-	articleJsonData = requests.get(queryURL).json()
-	if articleJsonData['status'] == 'ok':
-	    for article in articleJsonData['articles']:
-		title, publishedAt, description, url, author, sourceName = [(i if i else "Not available") for i in [article['title'], article['publishedAt'], article['description'], article['url'], article['author'], source[1]]]
-		newsData += title + '\n\n' + publishedAt + '\n' + description + '\nRead further at: ' + url + '\nAuthor: ' + author + '\nSource: ' + sourceName + '\n\n\n\n'
-	else :
-	    print queryURL
-	    return "Failed to fetch news."
+        newsQuery['source'] = source[0]
+        articleJsonData = requests.get(articleBaseURL, newsQuery).json()
+        if articleJsonData['status'] == 'ok':
+            for article in articleJsonData['articles']:
+                title, publishedAt, description, url, author, sourceName = [(i if i else "Not available") for i in [article['title'], article['publishedAt'], article['description'], article['url'], article['author'], source[1]]]
+                newsData += title + '\n\n' + publishedAt + '\n' + description + '\nRead further at: ' + url + '\nAuthor: ' + author + '\nSource: ' + sourceName + '\n\n\n\n'
+        else :
+            print(articleBaseURL)
+            return NEWS_ERR
     return newsData
 
 
