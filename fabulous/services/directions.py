@@ -51,16 +51,20 @@ def directions(start, end, unsafe=False):
     result = result.json()
     responce = ''
 
-    if result['status'] == "OK":
-        for i in range (0, len (result['routes'][0]['legs'][0]['steps'])):
-            j = result['routes'][0]['legs'][0]['steps'][i]['html_instructions']
-            responce +=strip_tags(j)+'\n'
+    try:
+        if result['status'] == "OK":
+            for i in range (0, len (result['routes'][0]['legs'][0]['steps'])):
+                j = result['routes'][0]['legs'][0]['steps'][i]['html_instructions']
+                responce +=strip_tags(j)+'\n'
 
-        return responce
-    else:
-        ''' Will be replaced with logging in future'''
-        print(result['status'])
-        print(result['error_message'])
+            return responce
+        else:
+            ''' Will be replaced with logging in future'''
+            print(result['status'])
+            print(result['error_message'])
+            return ERROR_MSG
+    except KeyError as e:
+        ''' Need to be logged'''
         return ERROR_MSG
 
 
