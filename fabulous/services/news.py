@@ -65,7 +65,7 @@ def fetchNews(newsParams):
 
 def on_message(msg, server):
     text = msg.get("text", "").split()
-    if text[0] == "news":
+    if text[0] == "~news":
         return fetchNews(text)
     return
 
