@@ -50,10 +50,22 @@ Users don’t have to leave Slack, open browser and search for something.
 
 *Note: for windows, edit Makefile and remove all instances of `sudo` and `sudo -H`*
 
+
+*Enabling different service*
+- Few services in fabulous rely on external services like google distance, search etc. to be use these services users will need to get their api key from these service providers and save them into a file from which fabulous can read the api keys.
+- To Enable Direction service save your google direction api to `fabulous/services/secret_example` file inside the `GOOGLE_DIRECTION_API` variable.
+- To Enable finance service save your api key to `secret_example` file inside the `ALPHA_VANTAGE_STOCK_API` variable.
+- TO Enable google search service save your google search api key and google CSE into `secret_example` file inside `GOOGLE_SEARCH_API` and `GOOGLE_CUSTOM_SEARCH_ENGINE` variables.
+- To Enable news service save your newsapi.org news api key to `secret_example` file inside `NEWS_API`variable.
+
+
 *Running in a Docker contianer!*
 
 - Clone the repo
 - run `cd fabulous && docker build -t faboulous . && docker run -it fabulous`
+
+*Running the TestSuite*
+- run `make test`
 
 # Getting Started
 
