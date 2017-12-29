@@ -5,12 +5,17 @@
 4. news <au, de, gb, in, it, us> <business, entertainment, gaming, general, music, politics, science-and-nature, sport, technology> <en,  de,  fr>"""
 import requests
 import json
-import urllib
 from secret_example import NEWS_API
 
+
+SOURCE_ERR = "Failed to fetch sources"
+NEWS_ERR = "Failed to fetch news"
+INTERNAL_ERR = "Some unknown error occured"
+sourceBaseURL = "https://newsapi.org/v1/sources"
+articleBaseURL = "https://newsapi.org/v1/articles"
+
+
 def fetchNews(newsParams):
-    sourceBaseURL = "https://newsapi.org/v1/sources?"
-    articleBaseURL = "https://newsapi.org/v1/articles?"
     language = 'en'
     category = 'general'
     country = 'in'
@@ -31,15 +36,19 @@ def fetchNews(newsParams):
 	'country':country,
 	'category':category
     }
-    queryURL = sourceBaseURL + urllib.urlencode(sourceQuery)
-    sourceJsonData = requests.get(queryURL).json()
+
+    sourceJsonData = requests.get(sourceBaseURL, params=sourceQuery).json()
     sourceList = []
-    if sourceJsonData['status'] == 'ok':
-	for sourceInfo in sourceJsonData['sources']:
-	    sourceList.append([sourceInfo['id'], sourceInfo['name']])
-    else:
-	print queryURL
-	return "Failed to fetch news."
+    try:
+        if sourceJsonData['status'] == 'ok':
+            for sourceInfo in sourceJsonData['sources']:
+                sourceList.append([sourceInfo['id'], sourceInfo['name']])
+        else:
+            print(sourceBaseURL)
+            return SOURCE_ERR
+    except KeyError:
+        print("Invalid data(key missing)")
+        return INTERNAL_ERR
 
     newsData = "\n"
     
@@ -48,24 +57,27 @@ def fetchNews(newsParams):
 	'apiKey':NEWS_API
     }
     
-    for source in sourceList:
-	newsQuery['source'] = source[0]
-	queryURL = articleBaseURL + urllib.urlencode(newsQuery)
-	articleJsonData = requests.get(queryURL).json()
-	if articleJsonData['status'] == 'ok':
-	    for article in articleJsonData['articles']:
-		title, publishedAt, description, url, author, sourceName = [(i if i else "Not available") for i in [article['title'], article['publishedAt'], article['description'], article['url'], article['author'], source[1]]]
-		newsData += title + '\n\n' + publishedAt + '\n' + description + '\nRead further at: ' + url + '\nAuthor: ' + author + '\nSource: ' + sourceName + '\n\n\n\n'
-	else :
-	    print queryURL
-	    return "Failed to fetch news."
+    try:
+        for source in sourceList:
+            newsQuery['source'] = source[0]
+            articleJsonData = requests.get(articleBaseURL, newsQuery).json()
+            if articleJsonData['status'] == 'ok':
+                for article in articleJsonData['articles']:
+                    title, publishedAt, description, url, author, sourceName = [(i if i else "Not available") for i in [article['title'], article['publishedAt'], article['description'], article['url'], article['author'], source[1]]]
+                    newsData += title + '\n\n' + publishedAt + '\n' + description + '\nRead further at: ' + url + '\nAuthor: ' + author + '\nSource: ' + sourceName + '\n\n\n\n'
+            else :
+                print(articleBaseURL)
+                return NEWS_ERR
+    except KeyError:
+        print("Key error")
+        return INTERNAL_ERR
     return newsData
 
 
 
 def on_message(msg, server):
     text = msg.get("text", "").split()
-    if text[0] == "news":
+    if text[0] == "~news":
         return fetchNews(text)
     return
 
