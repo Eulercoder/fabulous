@@ -1,9 +1,5 @@
 """~directions "<start>" "<end>" (in quotes) return a result from the google maps result for directions from <start> to <end>"""
 
-try:
-    from urllib import quote, urlencode
-except ImportError:
-    from urllib.request import quote, urlencode
 import re
 import requests
 import json, urllib
@@ -44,8 +40,6 @@ def directions(start, end, unsafe=False):
 
     mapService = GoogleMaps(GOOGLE_DIRECTION_API)
 
-    start = quote(start)
-    end = quote(end)
     url = 'http://maps.googleapis.com/maps/api/directions/json?origin={0}&destination={1}'.format(start,end)
     result = requests.get(url)
     result = result.json()
