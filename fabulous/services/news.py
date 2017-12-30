@@ -25,11 +25,11 @@ def fetchNews(newsParams):
     availLanguages = ['en', 'de', 'fr']
 
     if len(newsParams)>1 and newsParams[1] in availCountries:
-	country = newsParams[1]
+	    country = newsParams[1]
     if len(newsParams)>2 and newsParams[2] in availCategories:
-	category = newsParams[2]
+	    category = newsParams[2]
     if len(newsParams)>3 and newsParams[3] in availLanguages:
-	language = newsParams[3]
+	    language = newsParams[3]
     
     sourceQuery = {
 	'language':language,
