@@ -12,6 +12,11 @@ import sys
 import time
 import traceback
 
+try:
+    import gnureadline as readline
+except ImportError:
+    import readline
+
 from .slack import SlackClient, SlackConnectionError, SlackLoginError
 from .server import FabulousServer
 from .fakeserver import FakeServer
@@ -22,6 +27,9 @@ DIR = functools.partial(os.path.join, CURDIR)
 PYTHON3 = sys.version_info[0] > 2
         
 logger = logging.getLogger(__name__)
+
+readline.parse_and_bind('tab: complete')
+readline.parse_and_bind('set editing-mode vi')
 
 
 class InvalidServiceDirectory(Exception):
