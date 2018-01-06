@@ -213,8 +213,12 @@ def loop(server, test_loop=None):
                     # but empirical testing shows that I'm getting disconnected
                     # at 4000 characters and even quite a bit lower. Use 1000
                     # to be safe
-                    server.slack.rtm_send_message(event["channel"], response[:1000])
-                    response = response[1000:]
+                    if (len(response) > 1000):
+                        text = response[:1000].rsplit(None,1)[0]
+                    else:
+                        text = response
+                    server.slack.rtm_send_message(event["channel"], text)
+                    response = response[len(text)+1:]
 
             # Run the loop hook. This doesn't send messages it receives,
             # because it doesn't know where to send them. Use
