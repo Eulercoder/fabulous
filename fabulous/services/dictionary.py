@@ -1,17 +1,13 @@
 """~dict <search_term> will return the meaning and usage of <search_term>"""
 import requests
-try:
-    from urllib import quote
-except ImportError:
-    from urllib.request import quote
 import re
 
+DICTIONARY_BASEURL = "http://api.urbandictionary.com/v0/define?" 
 ERROR_MSG = "Sorry, this word doesn't exist!!"
 def dict(word):
-    query =  quote(word)
-    url = "http://api.urbandictionary.com/v0/define?term={0}".format(query)
+    payload = {'term':word}
 
-    response = requests.get(url)
+    response = requests.get(DICTIONARY_BASEURL, params=payload)
     data = response.json()
 
     try:
