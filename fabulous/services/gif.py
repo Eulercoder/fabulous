@@ -4,7 +4,7 @@ import re
 import requests
 from random import shuffle
 
-GIF_BASEURL = "https://www.google.com/search?"
+GIF_BASEURL = "https://www.google.com/search"
 
 def unescape(url):
     # for unclear reasons, google replaces url escapes with \x escapes

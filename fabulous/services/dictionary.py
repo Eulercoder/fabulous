@@ -2,7 +2,7 @@
 import requests
 import re
 
-DICTIONARY_BASEURL = "http://api.urbandictionary.com/v0/define?" 
+DICTIONARY_BASEURL = "http://api.urbandictionary.com/v0/define" 
 ERROR_MSG = "Sorry, this word doesn't exist!!"
 def dict(word):
     payload = {'term':word}

@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import requests
 
-CALC_BASEURL = "https://encrypted.google.com/search?"
+CALC_BASEURL = "https://encrypted.google.com/search"
 def calc(eq):
     payload = {'h1':'en', 'q':eq}
     soup = BeautifulSoup(requests.get(CALC_BASEURL, params=payload).text, "html5lib")

@@ -3,11 +3,9 @@ import requests
 from secret_example import ALPHA_VANTAGE_STOCK_API
 import re
 
-FINANCE_BASEURL = "https://www.alphavantage.co/query?"
+FINANCE_BASEURL = "https://www.alphavantage.co/query"
 ERROR_MSG = ":crying_cat_face: Sorry, something went wrong :crying_cat_face:"
 def stock(name):
-    # query = quote(name)
-
     payload = {'function':'TIME_SERIES_INTRADAY', 'symbol':name, 'interval':'1min', 
     'apikey':ALPHA_VANTAGE_STOCK_API}
 

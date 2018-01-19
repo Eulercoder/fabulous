@@ -4,7 +4,7 @@ import re
 import requests
 from random import shuffle
 
-YT_BASEURL = "https://www.youtube.com/results?"
+YT_BASEURL = "https://www.youtube.com/results"
 def yt(searchterm):
     payload = {'search_query': searchterm}
     r = requests.get(YT_BASEURL, params=payload)

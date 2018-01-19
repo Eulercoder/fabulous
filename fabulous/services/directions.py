@@ -11,7 +11,7 @@ except ImportError:
     from html.parser import HTMLParser
 
 ERROR_MSG = "Some unknown error occured"
-DIRECTIONS_BASEURL = "http://maps.googleapis.com/maps/api/directions/json?"
+DIRECTIONS_BASEURL = "http://maps.googleapis.com/maps/api/directions/json"
 #to strip HTML tags from the html_instructions string
 class MLStripper(HTMLParser):
     def __init__(self):

@@ -5,7 +5,7 @@ import requests
 
 ERROR_MSG = "sorry, no answer found"
 KEY_ERROR_MSG = "Sorry, some unknown error occured" 
-SOF_BASEURL = "https://api.stackexchange.com/2.2/search/advanced?"
+SOF_BASEURL = "https://api.stackexchange.com/2.2/search/advanced"
 
 def sof(searchterm):
     json_data = []
