@@ -1,9 +1,5 @@
 """~img <search term> return a random result from google search image related to the <search term>"""
 
-try:
-    from urllib import quote
-except ImportError:
-    from urllib.request import quote
 import re
 import requests
 from random import shuffle
