@@ -1,5 +1,6 @@
 import unittest
 from fabulous.services import stackoverflow
+from fabulous.services.stackoverflow import SOF_BASEURL
 ''' In python3 mock is part of unittest
 for python2 we need to install mock seperately 
 '''
@@ -10,8 +11,8 @@ except ImportError:
 
 
 QUERY = 'ImportError in python'
-API_ENDPOINT = "https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=relevance&q={0}&accepted=True&site=stackoverflow"
-URL = API_ENDPOINT.format(QUERY)
+payload = {'order':'desc', 'sort':'relevance', 'q': QUERY, 'accepted':'True', 
+           'site':'stackoverflow'}
 
 DUMMY_STACKOVERFLOW_RESPONCE = {
     "items":[
@@ -38,7 +39,7 @@ class TestStackOverFlowService(unittest.TestCase):
         stackoverflow.sof(QUERY)
 
         self.assertTrue(self.mock_get.called)
-        self.mock_get.assert_called_with(URL)
+        self.mock_get.assert_called_with(SOF_BASEURL, params=payload)
 
     def test_error_msg_return_when_responce_is_not_valid(self):
         self.mock_get.return_value = MagicMock()

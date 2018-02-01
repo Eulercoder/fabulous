@@ -2,7 +2,6 @@
 
 import re
 import requests
-import json, urllib
 import googlemaps
 from googlemaps import Client as GoogleMaps
 from secret_example import GOOGLE_DIRECTION_API
@@ -12,6 +11,7 @@ except ImportError:
     from html.parser import HTMLParser
 
 ERROR_MSG = "Some unknown error occured"
+DIRECTIONS_BASEURL = "http://maps.googleapis.com/maps/api/directions/json"
 #to strip HTML tags from the html_instructions string
 class MLStripper(HTMLParser):
     def __init__(self):
@@ -40,8 +40,8 @@ def directions(start, end, unsafe=False):
 
     mapService = GoogleMaps(GOOGLE_DIRECTION_API)
 
-    url = 'http://maps.googleapis.com/maps/api/directions/json?origin={0}&destination={1}'.format(start,end)
-    result = requests.get(url)
+    payload = {'origin':start, 'destination':end}
+    result = requests.get(DIRECTIONS_BASEURL, params=payload)
     result = result.json()
     responce = ''
 

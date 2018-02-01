@@ -1,21 +1,18 @@
 """~stock <search_term> will return the real time result of that stock."""
 import requests
 from secret_example import ALPHA_VANTAGE_STOCK_API
-
-try:
-    from urllib import quote
-except ImportError:
-    from urllib.request import quote
 import re
 
+FINANCE_BASEURL = "https://www.alphavantage.co/query"
 ERROR_MSG = ":crying_cat_face: Sorry, something went wrong :crying_cat_face:"
 def stock(name):
-    query = quote(name)
-    link = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval=1min&apikey="+ALPHA_VANTAGE_STOCK_API
-    url = link.format(query)
+    payload = {'function':'TIME_SERIES_INTRADAY', 'symbol':name, 'interval':'1min', 
+    'apikey':ALPHA_VANTAGE_STOCK_API}
+
     ''' Need to implement exception handling and logging
         for requests.get '''
-    response = requests.get(url)
+        
+    response = requests.get(FINANCE_BASEURL, params=payload)
     data = response.json()
 
     try:

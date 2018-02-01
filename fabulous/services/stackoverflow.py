@@ -1,19 +1,18 @@
 """~sof <your question> > will return the the result """
-try:
-    from urllib import quote
-except ImportError:
-    from urllib.request import quote
 import re
 import requests
-import json
 
 
 ERROR_MSG = "sorry, no answer found"
 KEY_ERROR_MSG = "Sorry, some unknown error occured" 
+SOF_BASEURL = "https://api.stackexchange.com/2.2/search/advanced"
+
 def sof(searchterm):
     json_data = []
-    searchurl="https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=relevance&q={0}&accepted=True&site=stackoverflow".format(searchterm)
-    result=requests.get(searchurl)
+    payload = {'order':'desc', 'sort':'relevance', 'q': searchterm, 'accepted':'True', 
+    'site':'stackoverflow'}
+    # searchurl="https://api.stackexchange.com/2.2/search/advanced?order=desc&sort=relevance&q={0}&accepted=True&site=stackoverflow".format(searchterm)
+    result=requests.get(SOF_BASEURL, params=payload)
     json_data=result.json()
     try:
             for dct in json_data["items"]:

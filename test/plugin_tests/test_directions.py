@@ -1,6 +1,7 @@
 import unittest
 from fabulous.services import directions
 from fabulous.services.secret_example import GOOGLE_DIRECTION_API
+from fabulous.services.directions import DIRECTIONS_BASEURL
 ''' In python3 mock is part of unittest
 for python2 we need to install mcok seperately 
 '''
@@ -9,10 +10,10 @@ try:
 except ImportError:
     from mock import MagicMock, patch
 
-ORIGIN = "PLACE_A"
-DESTINATION = "PLACE_B"
-API_ENDPOINT = 'http://maps.googleapis.com/maps/api/directions/json?origin={0}&destination={1}'
-URL = API_ENDPOINT.format(ORIGIN, DESTINATION)
+ORIGIN = 'PLACE_A'
+DESTINATION = 'PLACE_B'
+payload = {'origin':ORIGIN, 'destination':DESTINATION}
+
 
 DUMMY_RESPONCE = {'status': '',
                    'error_message':''}
@@ -50,7 +51,7 @@ class TestDirectionService(unittest.TestCase):
         responce =  directions.directions(ORIGIN,DESTINATION)
 
         self.assertTrue(self.mock_get.called)
-        self.mock_get.assert_called_with(URL)
+        self.mock_get.assert_called_with(DIRECTIONS_BASEURL, params=payload)
 
     def test_directions_return_error_msg_when_responce_status_is_not_ok(self):
         self.mock_get.return_value = MagicMock()

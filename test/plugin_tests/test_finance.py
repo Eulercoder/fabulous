@@ -8,10 +8,11 @@ except:
     ImportError
     from mock import Mock, patch
 from fabulous.services.secret_example import ALPHA_VANTAGE_STOCK_API
+from fabulous.services.finance import FINANCE_BASEURL
 
 QUERY = 'MSFT'
-link = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={0}&interval=1min&apikey="+ALPHA_VANTAGE_STOCK_API
-QUERY_URL = link.format(QUERY) 
+payload = {'function':'TIME_SERIES_INTRADAY', 'symbol':QUERY, 'interval':'1min', 
+        'apikey':ALPHA_VANTAGE_STOCK_API}
 
 
 DUMMY_ALPHA_VANTAGE_API_RESPONCE = {
@@ -54,7 +55,7 @@ class TestFinanceService(unittest.TestCase):
         responce = finance.stock(QUERY)
 
         self.assertTrue(self.mock_get.called)
-        self.mock_get.assert_called_with(QUERY_URL)
+        self.mock_get.assert_called_with(FINANCE_BASEURL, params= payload)
 
     def test_stock_returns_error_message_with_when_responce_is_not_valid(self):
         self.mock_get.return_value = Mock()
