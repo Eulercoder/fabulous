@@ -88,6 +88,6 @@ Check [Issue tracker](https://github.com/eulercoder/fabulous/issues) for all the
 
 # Licence
 
-[MIT](https://github.com/eulercoder/fabulous/blob/master/LICENSE) Licence (c) [Vikesh Tiwari](https://github.com/vicky002)
+[GPL-V3](/LICENSE) Licence (c) Eulercoder Technologies & [vicky002](https://github.com/vicky002)
 
 Built with :heart: in python and [Eulercoder](http://eulercoder.me)
