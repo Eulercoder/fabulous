@@ -34,6 +34,11 @@ Users don’t have to leave Slack, open browser and search for something.
 
 [Read the full article here.](http://eulercoder.me/2017/09/eulercoder-project-series-fabulous-bot/)
 
+## Goal? 
+
+We are currently buidling this. If you would like to hear about our first beta release, please [leave your email here](http://eepurl.com/c5aT31).
+
+![Fabulous](/Fabulous-Integrations.png)
 
 
 # Installation
