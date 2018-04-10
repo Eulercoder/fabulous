@@ -19,3 +19,7 @@ GOOGLE_CUSTOM_SEARCH_ENGINE = ''
 ''' Used to fetch news from newsapi.org
 Link https://newsapi.org/ '''
 NEWS_API = ''
+
+''' openweathermap api key. Used for fetching real time weather information
+Link https://home.openweathermap.org/users/sign_up '''
+WEATHER_API = 'ee3f34d4ef85aac3ec402dbe6af8bf0f'
