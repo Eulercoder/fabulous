@@ -1,39 +1,29 @@
-import argparse
 import requests
 import re
+import json
 from bs4 import BeautifulSoup
-import pynotify
-from time import sleep
-
-
-def sendmessage(title, message):
-    pynotify.init("Test")
-    notice = pynotify.Notification(title, message)
-    notice.show()
-    return
+from secret_example import WEATHER_API
 
 
 def weather(searchcity):
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--delay", help="Set the delay for notifications in seconds. By default, it is 60 seconds", type=int, default=60)
-    args = parser.parse_args()
+    payload = {"q":searchcity, "appid":"ee3f34d4ef85aac3ec402dbe6af8bf0f", "units":"metric"}
 
-    url = "http://api.openweathermap.org/data/2.5/weather?q=" + searchcity + "&mode=xml&units=metric"
-
-    while True:
-        r = requests.get(url, timeout=5)
-
-        while r.status_code is not requests.codes.ok:
-                r = requests.get(url, timeout=5)
-
-        soup = BeautifulSoup(r.text)
-        data = ("City: " + soup.city["name"] + ", Country: " + soup.country.text + "\nTemperature: " + soup.temperature["value"] +
-        " Celsius\nWind: " + soup.speed["name"] + ", Direction: " + soup.direction["name"] + "\n\n" + soup.weather["value"])
-
-        # print data
-
-        sendmessage("Today\'s weather", data)
-        sleep(args.delay)
+    base_url = "http://api.openweathermap.org/data/2.5/weather"
+    
+    try:
+        r = requests.get(base_url, params=payload)
+        data = json.loads(r.text)
+        if data["cod"] == 200:
+            return "The temperature in " + searchcity.upper() + "," + data["sys"]["country"] + " is " + \
+                    str(data["main"]["temp"]) + u'\N{DEGREE SIGN}' + "C with " + data["weather"][0]["description"] + \
+                    "\nThe minimum and maximum expected temperatures are " + str(data["main"]["temp_min"]) + \
+                    u'\N{DEGREE SIGN}' + "C and " + str(data["main"]["temp_max"]) + u'\N{DEGREE SIGN}' + "C"
+        elif data["cod"] == "404":
+            return "Please enter a valid city"
+        else:
+            return "Something went wrong"
+    except:
+        return "Something went wrong"
 
 
 def on_message(msg, server):
