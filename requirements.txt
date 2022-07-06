@@ -1,4 +1,4 @@
-html5lib==0.9999999
+html5lib==0.999999999
 pyflakes==1.6.0
 beautifulsoup4==4.6.0
 flake8==3.4.1
